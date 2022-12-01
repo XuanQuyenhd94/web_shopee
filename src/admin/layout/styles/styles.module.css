@@ -1,0 +1,13 @@
+.logo{
+    width: 180px;
+    margin: 0 auto;
+}
+.logo svg {
+    width: 180px;
+    height: 60px;
+    margin-bottom: 20px ;
+}
+.logo g {
+    fill: var(--shp-primary);
+}
+

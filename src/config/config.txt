@@ -1,0 +1,19 @@
+import dotevn from 'dotenv'
+
+
+// "auth != null"
+NODE_ENV=development
+
+#config constant value
+
+#config firebase value
+# FB_APIKEY = ""
+# FB_AUTHDOMAIN =""
+# FB_PROJECTID =""
+# FB_sTORAGEBUCKET=""
+# FB_MESSAGINGSENDERID =""
+# FB_APPID =""
+
+#config auth api
+SIGNIN = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" #APIKEY
+SIGNUP = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="

@@ -1,0 +1,153 @@
+.catalogy{
+    display: flex;
+    flex-wrap: wrap;
+}
+.item{
+    width: 10%;
+    height: 165px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 14px;
+    color: #4a4a4a;
+}
+.item:hover{
+    color: #4a4a4a;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.item img{
+    display: inline-block;
+    width: 80%;
+    margin: 5px auto;
+}
+.item p{
+    padding: 0 5px;
+}
+.title{
+    font-size: 16px;
+    padding: 10px 0;
+    display: block;
+}
+.title svg{
+    color: #4a4a4a;
+}
+.title span{
+    font-size: 18px;
+    margin-left: 10px;
+    color: black;
+    font-weight: 500;
+}
+.hr{
+    width: 100%;
+    height: 1px;
+    background-color: #4a4a4a;
+}
+.list{
+    width: 100%;   
+}
+.list li a, .xt{
+    display: block;
+    padding: 3px 10px;
+    cursor: pointer;
+    color: #000000de;
+}
+.list li a:hover{
+    font-weight: bolder;
+    color: var(--shp-primary);
+}
+.listDanhMuc li{
+    display: flex;  
+    align-items: center;  
+    margin: 10px 0;
+}
+.listDanhMuc li label{    
+    cursor: pointer;
+    color: #000000de;   
+    margin: 0 !important;     
+    display: flex;  
+    align-items: center;  
+    margin: 10px 0;
+}
+.listDanhMuc li input[type='checkbox']{
+    margin-right: 10px;
+}
+/* .listDanhMuc li label: */
+.form >div{
+    display: flex;
+    justify-content: space-between;
+}
+.form input{
+    width: 40%;
+    height: 30px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding-left: 5px;
+}
+.btn{
+    display: block;
+    padding: 7px 0;
+    width: 100%;
+    margin: 20px 0;
+    outline: none;
+    border: none;
+    background-color: var(--shp-primary);
+    border-radius: 2px;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+}
+.titleSort{
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 5px;
+}
+.titleSort .select{
+    width: 20%;    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.titleSort .select::after{
+    content: "";
+    width: 100%;
+    height: 5px;
+    background-color: transparent;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+.options{
+    position: absolute;
+    top: 105%;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 2px;
+    display: none;
+    z-index: 9999999999;
+}
+.options div:hover{
+    color: var(--shp-primary);
+}
+.options div:not(:last-child){
+    margin-bottom: 15px;
+}
+.titleSort .select:hover >.options{
+    display: block;
+}
+
+.titleSort span, .titleSort select{
+    padding: 10px;
+    background-color: white;
+    margin-right: 10px;
+    cursor: pointer;  
+    border-radius: 2px;  
+}
+.titleSort span:first-child{
+    background-color: transparent !important;
+}
+
+
+

@@ -1,0 +1,64 @@
+.wrapperImg{
+    background-image: url(https://cf.shopee.vn/file/623107776ce3d3176a333ad1503d8152);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80vh;
+    width: 100%;
+    position: relative;
+}
+.wrapper{
+    position: absolute;
+    background-color: white;
+    color: black;
+    top: 100px;
+    right: 300px;
+    padding: 20px;
+    width: 400px;
+    border-radius: 3px;
+}
+.title{
+    font-size: 25px;
+}
+.wrapper input {
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    padding-left: 10px;
+    height: 40px;    
+    border: 1px solid rgba(0, 0, 0, .15);
+    transition: all ease-in .2s;
+    border-radius: 2px;
+}
+.wrapper button{
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+    background-color: #f53d2d;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    transition: all ease-out .3s;
+}
+.wrapper button:hover{
+    opacity: .7;
+}
+.wrapper input:focus{
+    border: 1px solid black;
+}
+.hr{
+    height: 2px;
+    background-color: rgba(0, 0, 0, .15);
+    margin-bottom: 30px;
+}
+
+.formControl{
+    margin: 20px 0;
+}
+.wrapLink a{
+    color: #f53d2d;
+    margin-left: 15px;
+    cursor: pointer;
+}

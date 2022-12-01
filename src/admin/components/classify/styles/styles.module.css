@@ -1,0 +1,15 @@
+.wrapper{
+    display: inline-block;
+    padding: 10px 0;
+    border: 1px solid var(--shp-primary);
+    width: 100%;
+    margin-top: 20px;
+}
+.items{
+    display: inline-block;
+    margin-left: 10px;
+    text-decoration: underline;    
+}
+/* .items::after{
+    content: "|";
+} */

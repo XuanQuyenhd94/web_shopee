@@ -1,0 +1,129 @@
+.wrapper{
+    background-color: white;
+    padding: 0 20px ;
+    height: 100%;
+}
+.title , .sells, .prices , .info , .quantity , .cart{
+    margin-bottom: 15px;
+}
+.title{
+    font-size: 18px;
+    height: 30px;
+} 
+.sells span{
+    color: rgba(0, 0, 0, .55);
+    margin-left: 5px;
+}
+.prices{
+    display: flex;
+    align-items: center;
+}
+.prices >span{
+    font-size: 16px;
+    margin-right: 10px;
+}
+.prices >span:nth-child(1){
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, .55);
+}
+.prices >span:nth-child(2){
+    display: flex;
+    align-items: center;
+}
+.prices >span:nth-child(2) span:nth-child(1){
+    text-decoration: underline;
+    color: var(--shp-primary);
+    margin-right: 3px;
+    margin-bottom: 8px;
+    font-size: 18px;      
+}
+.prices >span:nth-child(2) span:nth-child(2){
+    font-size: 25px;
+    color: var(--shp-primary);
+}
+.prices >span:nth-child(3){
+    display: inline-block;
+    padding: 2px 5px;
+    background-color: var(--shp-primary);
+    color: white;
+    font-size: 13px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+.info{
+    display: block;  
+    margin: 10px 0;   
+}
+.infoItem{
+    margin: 10px 15px 10px 0;
+    text-decoration: underline;
+}
+.container{
+    display: flex;
+    align-items: center;    
+}
+.container span{
+    margin-right: 10px;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    padding: 5px 0; 
+    border: 1px solid white;   
+    cursor: pointer;
+}
+.container span:hover{
+    border: 1px solid red;
+}
+.quantity {
+    display: flex;
+    align-items: center;
+}
+.quantity span:nth-child(1){
+    margin-right: 50px;
+}
+.quantity input {
+    margin:  0 1px;
+    width: 60px;
+    padding-left: 15px;
+    border: 1px solid rgba(0, 0, 0, .55);
+    outline: none;
+    height: 30px;
+}
+.quantityContainer{
+    display: flex;
+    align-items: center;
+}
+.plus , .minus{    
+    border: 1px solid rgba(0, 0, 0, .55);
+    cursor: pointer;
+    outline: none;
+    height: 30px;
+    width: 30px;
+}
+.cart{
+    margin-top: 50px;
+}
+.cart button{
+    margin-right: 10px;
+    display: inline-block;
+    padding:10px;
+    outline: none;
+    font-size: 18px;
+}
+.cart button:nth-child(1){
+    border: 1px solid var(--shp-primary);
+    border-radius: 2px;
+    color: var(--shp-primary);
+}
+.cart button:nth-child(1) span{
+    margin-left: 10px;
+}
+.cart button:nth-child(2){
+    border-radius: 2px;
+    background-color: var(--shp-secondary);
+    color: white;
+    border: none;
+}
+.cart  button:hover{
+    opacity: .9;
+}

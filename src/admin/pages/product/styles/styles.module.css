@@ -1,0 +1,24 @@
+.headding {
+     text-align: center;
+     margin: 20px 0;
+}
+.wrapperButton button:nth-child(1){
+    margin-right: 20px;
+    background-color: var(--shp-primary);
+}
+.wrapperButton button:nth-child(2){
+    background-color: rgba(0, 0, 0, .55);
+}
+.wrapperButton button{
+    padding: 5px 10px;
+    display: inline-block;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    font-size: 18px;
+}
+.wrapperButton button:hover{
+    opacity: .9;
+    font-weight: 500;
+}
