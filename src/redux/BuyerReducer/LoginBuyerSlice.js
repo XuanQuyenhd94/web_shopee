@@ -5,8 +5,11 @@ import axios from 'axios';
 const initialState = {
     loading: false,
     data:{
-    token: (JSON.parse(localStorage.getItem('buyer'))=== null ? null 
-    : JSON.parse(localStorage.getItem('buyer')).token )
+      token: (JSON.parse(localStorage.getItem('buyer'))=== null 
+      ? null : JSON.parse(localStorage.getItem('buyer')).token ),
+
+      userId : (JSON.parse(localStorage.getItem('buyer'))=== null 
+      ? null : JSON.parse(localStorage.getItem('buyer')).idUser )
     },
     error: false
     // ,
@@ -62,8 +65,12 @@ const initialState = {
                   state.error = action.payload.error;
               } else {
                   const user = action.payload;     
+                  localStorage.setItem('buyer',JSON.stringify({
+                    token:user.idToken,
+                    idUser:user.localId
+                  })) ;
                   state.data.token = user.idToken ;
-                  localStorage.setItem('buyer',JSON.stringify(user.idToken)) ;
+                  state.data.userId = user.localId;
               }
           })
           .addCase(login.rejected, (state, action) => {

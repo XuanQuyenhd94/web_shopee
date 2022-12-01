@@ -64,6 +64,22 @@ export const addProduct = createAsyncThunk(
         // thunkApi.dispatch(login('abc')); => dispatch action bất kì.
     },
 );
+export const deleteProducts = createAsyncThunk(
+    'products/deleteProducts',
+    async (arg, thunkApi) => {
+        let token = thunkApi.getState().LoginReducer.data.token; 
+        try {            
+            const res = await customAxios.delete(`/products/${arg.id}.json?auth=${token}`);            
+            return arg.id;
+        } catch (error) {
+            return {
+                error: error.response.data.error,
+            };
+        }
+        // thunkApi.getState() => lấy dữ liệu từ store ra
+        // thunkApi.dispatch(login('abc')); => dispatch action bất kì.
+    },
+);
 const ProductsSlice = createSlice({
     name: 'products',
     initialState,
@@ -126,6 +142,27 @@ const ProductsSlice = createSlice({
                 }
             })
             .addCase(addProduct.rejected, (state, action) => {
+                state.loading = false;
+                state.error = true;
+            })
+            
+            .addCase(deleteProducts.pending, (state, action) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(deleteProducts.fulfilled, (state, action) => {
+                state.loading = false;
+                if (action.payload.error) {
+                    state.error = action.payload.error;
+                } else {
+                    const key = action.payload; 
+                    // let data = {...state.data}
+                    // delete data[key] ;                     
+                    // state.data = data ;
+                    delete state.data[key] ;                   
+                }
+            })
+            .addCase(deleteProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = true;
             })

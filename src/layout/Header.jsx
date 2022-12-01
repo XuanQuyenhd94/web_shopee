@@ -8,15 +8,16 @@ import Cart from '../components/Cart';
 import { Link } from 'react-router-dom';
 import { getBuyer, selectBuyers } from '../redux/BuyerReducer/BuyerSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectLogin } from '../redux/BuyerReducer/LoginBuyerSlice';
 
 
 function Header() {
-    const token = JSON.parse(localStorage.getItem("buyer"));
+    const data = useSelector(selectLogin);
     const dispatch = useDispatch()
     const user = useSelector(selectBuyers);    
     useEffect(() => {
         dispatch(getBuyer({
-            id:token
+            id:data.data.token
         }))
     }, []);
     return (
@@ -44,7 +45,7 @@ function Header() {
                                     <a href>Hỗ Trợ</a>
                                 </div>
                                 {
-                                     token!==null ? (
+                                     data.data.token!==null ? (
                                         <div className="hder-create">
                                            {
                                             user.data !==null && (

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react'
 
 function DetailSlider({ avatar }) {
-  console.log(avatar);
+  // console.log(avatar);
   const [currentIndex, setCurrentIndex] = useState(0);
   let sliderStyles = {
     position: 'relative',
@@ -15,7 +15,7 @@ function DetailSlider({ avatar }) {
     height: '100%',
     borderRadius: '10px',
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat'
   }
   let pre = {

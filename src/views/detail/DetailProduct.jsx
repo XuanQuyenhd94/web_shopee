@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row ,Modal,Form,Button} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus, faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import DetailSlider from '../../components/slides/DetailSlider'
 import ItemWrapper from '../../components/items/ItemWrapper'
 import styles from './styles/styles.module.css'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { currencyFormat } from '../../ultils/constant'
+import { currencyFormat ,salePrice} from '../../ultils/constant'
 import { useDispatch, useSelector } from "react-redux"
 import { getOne, selectProducts } from '../../redux/Products/ProductsSlice'
 import LoadingPage from '../loadding/LoadingPage'
+import { login } from '../../redux/BuyerReducer/LoginBuyerSlice'
+import { addToCart } from '../../redux/CartReducer/CartSlice'
 
 function DetailProduct() {
+
+    const [show, setShow] = useState(false);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+
+    // const [classify, setClassify] = useState(null);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const params = useParams();
     const id = params.id;
-    // const id = productId.id;
-    console.log(id);
+    // const id = productId.id;    
     const dispatch = useDispatch();
     const product = useSelector(selectProducts)
     let navigate = useNavigate();
@@ -54,10 +64,39 @@ function DetailProduct() {
 
     }
     const handleSell = () => {
-        navigate("/cart");        
+        navigate("/cart");
     }
-
-    useEffect(() => { 
+    const handleLogin = ()=>{
+        dispatch(login({
+            email:email,
+            password:password
+        }));
+        handleClose();
+    }
+    const handleAddToCart = () => {
+        console.log();
+        let token = (JSON.parse(localStorage.getItem('buyer')) === null ? null
+            : JSON.parse(localStorage.getItem('buyer')).token);
+        if (token !== null) {
+            dispatch(addToCart({
+                idProduct:id,
+                name: product.data.name,
+                avatar: product.data.avatar[0],
+                price:product.data.price,
+                sale:product.data.sale,
+                quantity: inputValue              
+            }))
+            .unwrap()
+            .then(res =>{                
+                navigate('/cart');
+            });
+        }
+        else {
+            //mở modal
+            handleShow();
+        }
+    }
+    useEffect(() => {
         dispatch(getOne({
             id: id
         }));
@@ -76,105 +115,145 @@ function DetailProduct() {
                         :
                         (
                             <>
-                            {
-                            product.data !==null && (
-                            <Container>
-                                <Row>                                    
-                                    {                                    
-                                        product.data.avatar ?
-                                        (
-                                            <Col lg={5} >
-                                                <div style={containerStyles}>
-                                                    <DetailSlider avatar={product.data.avatar} />
-                                                </div>
-                                            </Col>
-                                        ) :
-                                        (
-                                            <p>no data</p>
-                                        )                              
-                                    }
-                                    <Col lg={7}>
-                                        <div className={styles.wrapper}>
-                                            <div className={styles.title}>
-                                                {product.data.name}
-                                            </div>
-                                            {/* <div className={styles.sells}>
+                                {
+                                    product.data !== null && (
+                                        <Container>
+                                            <Row>
+                                                {
+                                                    product.data.avatar ?
+                                                        (
+                                                            <Col lg={5} >
+                                                                <div style={containerStyles}>
+                                                                    <DetailSlider avatar={product.data.avatar} />
+                                                                </div>
+                                                            </Col>
+                                                        ) :
+                                                        (
+                                                            <p>no data</p>
+                                                        )
+                                                }
+                                                <Col lg={7}>
+                                                    <div className={styles.wrapper}>
+                                                        <div className={styles.title}>
+                                                            {product.data.name}
+                                                        </div>
+                                                        {/* <div className={styles.sells}>
                                                 8,4k <span>Đã Bán</span>
                                             </div> */}
-                                            <div className={styles.prices}>
-                                                <span>{currencyFormat(parseInt(product.data.price))}</span>
-                                                <span>
-                                                    <span>đ</span>
-                                                    <span>{currencyFormat(50000)}</span>
-                                                </span>
-                                                <span>-{product.data.sale}% giảm</span>
-                                            </div>
-                                            <div className={styles.info}>
-                                                {
-                                                    product?.data?.classify?.map((item, index) => {
-                                                        return (
-                                                            <>
-                                                                <div key={index}>
-                                                                    <div className={styles.infoItem}>{item.type}</div>
-                                                                    <div className={styles.container}>
-                                                                        {
-                                                                            item?.data?.map((i, d) => {
-                                                                                return (
-                                                                                    <span key={d}>{i.data}</span>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-                                                                </div>
+                                                        <div className={styles.prices}>
+                                                            <span>{currencyFormat(parseInt(product.data.price))}</span>
+                                                            <span>
+                                                                <span>đ</span>
+                                                                <span>{currencyFormat(salePrice(parseInt(product.data.price),parseInt(product.data.sale)))}</span>
+                                                            </span>
+                                                            <span>-{product.data.sale}% giảm</span>
+                                                        </div>
+                                                        <div className={styles.info}>
+                                                            {
+                                                                product?.data?.classify?.map((item, index) => {
+                                                                    return (
+                                                                        <>
+                                                                            <div key={index}>
+                                                                                <div className={styles.infoItem}>{item.type}</div>
+                                                                                <div className={styles.container}>
+                                                                                    {
+                                                                                        item?.data?.map((i, d) => {
+                                                                                            return (
+                                                                                                <span key={d}>{i.data}</span>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
 
-                                                            </>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            <div className={styles.quantity}>
-                                                <span>Số lượng</span>
-                                                <span className={styles.quantityContainer}>
-                                                    <button className={styles.minus} onClick={() => handleMinus()}>
-                                                        <FontAwesomeIcon icon={faMinus} />
-                                                    </button>
-                                                    <input type="text" name="" id="" value={inputValue}
-                                                        onChange={(e) => handleChangeInput(e)}
-                                                    />
-                                                    <button className={styles.plus} onClick={() => handlePlus()}>
-                                                        <FontAwesomeIcon icon={faPlus} />
-                                                    </button>
-                                                </span>
-                                            </div>
-                                            <div className={styles.cart}>
-                                                <button>
-                                                    <FontAwesomeIcon icon={faCartPlus} />
-                                                    <span>Thêm Vào Giỏ Hàng</span>
-                                                </button>
-                                                <button
+                                                                        </>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                        <div className={styles.quantity}>
+                                                            <span>Số lượng</span>
+                                                            <span className={styles.quantityContainer}>
+                                                                <button className={styles.minus} onClick={() => handleMinus()}>
+                                                                    <FontAwesomeIcon icon={faMinus} />
+                                                                </button>
+                                                                <input type="text" name="" id="" value={inputValue}
+                                                                    onChange={(e) => handleChangeInput(e)}
+                                                                />
+                                                                <button className={styles.plus} onClick={() => handlePlus()}>
+                                                                    <FontAwesomeIcon icon={faPlus} />
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                        <div className={styles.cart}>
+                                                            <button
+                                                                 onClick={() => handleAddToCart()}
+                                                            >
+                                                                <FontAwesomeIcon icon={faCartPlus}                                                                   
+                                                                />
+                                                                <span>Thêm Vào Giỏ Hàng</span>
+                                                            </button>
+                                                            <Modal show={show} onHide={handleClose}>
+                                                                <Modal.Header closeButton>
+                                                                    <Modal.Title>Đăng Nhập</Modal.Title>
+                                                                </Modal.Header>
+                                                                <Modal.Body>
+                                                                    <Form>
+                                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                                            <Form.Label>Email</Form.Label>
+                                                                            <Form.Control
+                                                                                type="email"
+                                                                                placeholder="name@example.com"
+                                                                                autoFocus
+                                                                                value={email}
+                                                                                onChange={(e)=>setEmail(e.target.value)}
+                                                                            />
+                                                                        </Form.Group>
+                                                                        <Form.Group
+                                                                            className="mb-3"
+                                                                            controlId="exampleForm.ControlTextarea1"
+                                                                        >
+                                                                            <Form.Label>Password</Form.Label>
+                                                                            <Form.Control type='password' 
+                                                                                value={password}
+                                                                                onChange={(e)=>setPassword(e.target.value)}
+                                                                            />
+                                                                        </Form.Group>
+                                                                    </Form>
+                                                                </Modal.Body>
+                                                                <Modal.Footer>
+                                                                    <Button variant="secondary" onClick={handleClose}>
+                                                                        Đóng
+                                                                    </Button>
+                                                                    <Button variant="primary" onClick={handleLogin}>
+                                                                        Đăng nhập
+                                                                    </Button>
+                                                                </Modal.Footer>
+                                                            </Modal>
+                                                            {/* <button
                                                     onClick={() => handleSell()}
-                                                >Mua Ngay</button>
-                                            </div>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <div className={styles.chitiet}>
-                                        <h4>Chi Tiết Sản Phẩm</h4>
-                                    </div>
-                                    <div className={styles.mota}>
-                                        <h4>Mô Tả Sản Phẩm</h4>
-                                    </div>
-                                </Row>
-                                {/* <Row>
+                                                >Mua Ngay</button> */}
+                                                        </div>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <div className={styles.chitiet}>
+                                                    <h4>Chi Tiết Sản Phẩm</h4>
+                                                </div>
+                                                <div className={styles.mota}>
+                                                    <h4>Mô Tả Sản Phẩm</h4>
+                                                </div>
+                                            </Row>
+                                            {/* <Row>
                                     <div className={styles.tuongtu}>
                                         <h4>Sản phẩm tương tự</h4>
                                         <ItemWrapper />
                                     </div>
                                 </Row> */}
-                            </Container>
-                            )
-                            }
+                                        </Container>
+                                    )
+                                }
                             </>
                         )
                 }

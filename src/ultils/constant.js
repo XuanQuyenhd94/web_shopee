@@ -9,6 +9,9 @@ export const createFileName = (name, fileName) => {
   return (name + fileName.slice(fileName.lastIndexOf('.')));
 }
 export const coverString = (str) => str.split(' ').map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`).join(' ');
+export const salePrice = (price,sale)=>{
+  return Math.floor(price/1000 - price*sale/100000)*1000 ;
+}
 // export const renameKeys = (keysMap, object) =>
 //   Object.keys(object).reduce(
 //     (acc, key) => ({

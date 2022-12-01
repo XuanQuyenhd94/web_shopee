@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash, faPenToSquare, faEye } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { getProducts, selectProducts } from '../../../redux/Products/ProductsSlice'
+import { deleteProducts, getProducts, selectProducts } from '../../../redux/Products/ProductsSlice'
 import LoadingPage from "../../../views/loadding/LoadingPage"
 import { currencyFormat } from '../../../ultils/constant'
 
@@ -16,6 +16,12 @@ function AdminProducts() {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
   const arrKey = Object.keys(products.data)
+
+  const handleDelete = (id)=>{
+    dispatch(deleteProducts({
+      id:id
+    }))
+  }
 
   useEffect(() => {
     dispatch(getProducts())
@@ -77,7 +83,7 @@ function AdminProducts() {
                             <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer" }} />
 
                             <FontAwesomeIcon icon={faPenToSquare} style={{ cursor: "pointer" }} onClick={() => { }} />
-                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer" }} />
+                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer" }} onClick={() => { handleDelete(item)}} />
                           </div>
                         </td>
                       </tr>

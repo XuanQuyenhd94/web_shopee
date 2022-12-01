@@ -5,12 +5,14 @@ import AdminCatalogiesSlice from './AdminCatalogies/AdminCatalogiesSlice'
 import ProductsSlice from './Products/ProductsSlice'
 import LoginBuyerSlice from './BuyerReducer/LoginBuyerSlice'
 import BuyerSlice from './BuyerReducer/BuyerSlice'
+import CartSlice from './CartReducer/CartSlice'
 
 export default configureStore({
     reducer:{
         LoginReducer:LoginSlice , 
         LoginBuyerReducer:LoginBuyerSlice ,
         BuyerReducer : BuyerSlice,
+        CartReducer : CartSlice,
         UserReducer : UserSlice,
         AdminCatalogiesReducer : AdminCatalogiesSlice,
         ProductsReducer : ProductsSlice,

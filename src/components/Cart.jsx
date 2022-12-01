@@ -1,9 +1,22 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import cart from '../assets/Imgs/no-cart.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux';
+import { CheckTotal, getCarts, selectCarts } from '../redux/CartReducer/CartSlice';
 
 function Cart() {
+    // const dispatch = useDispatch();
+    // const cart = useSelector(selectCarts);
+
+    // useEffect(() => {
+    //     dispatch(getCarts()
+    //     .unwrap()
+    //     .then(res=>{
+    //         dispatch(CheckTotal());
+    //     }))
+    // }, []);
+
     return (
         <>
             <div className="shp-cart">
